@@ -840,6 +840,145 @@ a:hover {
   box-shadow: var(--shadow-sm);
 }
 
+/* ===== AUTH / SIGNUP PAGE STYLES ===== */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing-2xl)) 16px;
+  width: 100%;
+  min-height: calc(100vh - 120px); /* leave room for navbar/footer */
+  background: linear-gradient(180deg, rgba(10, 34, 64, 0.03), rgba(0, 0, 0, 0));
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98),
+    rgba(250, 252, 255, 0.95)
+  );
+  border-radius: 14px;
+  padding: calc(var(--spacing-lg) + 8px);
+  box-shadow: 0 10px 30px rgba(8, 35, 69, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 113, 189, 0.06);
+  transition: transform 220ms var(--transition-fast),
+    box-shadow 220ms var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 168, 232, 0.03),
+    rgba(0, 113, 189, 0.03)
+  );
+  pointer-events: none;
+}
+
+.auth-container:hover {
+  transform: none !important;
+  box-shadow: 0 10px 30px rgba(8, 35, 69, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* header */
+.auth-container .ant-typography {
+  margin-bottom: var(--spacing-md) !important;
+  color: var(--dark-nav);
+}
+
+/* labels & help text */
+.auth-container .ant-form-item-label > label {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* inputs */
+.auth-container .ant-input,
+.auth-container .ant-input-affix-wrapper {
+  border-radius: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  background: white;
+  transition: var(--transition-fast);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02) inset;
+}
+
+.auth-container .ant-input:focus,
+.auth-container .ant-input-affix-wrapper-focused {
+  border-color: var(--pink);
+  box-shadow: 0 6px 18px rgba(0, 113, 189, 0.08);
+}
+
+/* buttons */
+.auth-container .ant-btn {
+  border-radius: 10px;
+  height: 44px;
+}
+
+.auth-container .ant-btn-primary {
+  background: linear-gradient(90deg, #0071bd 0%, #00a8e8 100%);
+  border: none;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 113, 189, 0.12);
+  transition: transform 180ms var(--transition-fast),
+    box-shadow 180ms var(--transition-fast);
+}
+
+.auth-container .ant-btn-primary:hover,
+.auth-container .ant-btn-primary:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 113, 189, 0.16);
+}
+
+/* secondary actions */
+.auth-container .ant-btn[onClick] {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+}
+
+/* OTP row */
+.auth-container .otp-note {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: calc(var(--spacing-sm));
+}
+
+/* small helpers */
+.auth-container .ant-form-item-explain {
+  color: var(--danger);
+}
+
+/* responsive */
+@media screen and (max-width: 600px) {
+  .auth-container {
+    padding: var(--spacing-md);
+    border-radius: 12px;
+  }
+
+  .auth-page {
+    padding: var(--spacing-lg) 12px;
+    min-height: auto;
+  }
+
+  .auth-container .ant-input,
+  .auth-container .ant-input-affix-wrapper {
+    padding: 10px;
+  }
+
+  .auth-container .ant-btn {
+    height: 42px;
+  }
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 
 /* ===== TABLET (768px - 1024px) ===== */

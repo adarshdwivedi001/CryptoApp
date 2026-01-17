@@ -1,16 +1,70 @@
-# React + Vite
+# Cryptoverse — Simple README
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+What this project is
 
-Currently, two official plugins are available:
+- Cryptoverse is a small React app that displays cryptocurrency data: lists, details, and charts.
+- It uses Ant Design for UI and a simple mock signup flow with OTP (for testing only).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+How we built it (plain steps)
 
-## React Compiler
+1. Create a React app and install libraries:
+   - React, react-router-dom for routing.
+   - Ant Design for ready UI components.
+   - chart.js + react-chartjs-2 for charts.
+2. Build a layout with a left navbar and main content area.
+3. Fetch cryptocurrency data from an API service (wrapped in src/services/cryptoApi).
+4. Create pages/components:
+   - HomePage: shows global stats and top coins.
+   - Cryptocurrencies: shows a list of coins with search.
+   - CryptoDetails: shows coin info and a price chart.
+   - LineChart: renders history data.
+   - Navbar, Loader and small UI parts.
+5. Add simple auth:
+   - Signup page collects name, email and mobile.
+   - Generates an OTP in the browser and verifies it (mock).
+   - Stores a mock session in localStorage (currentUser) so protected routes work.
+6. Style everything in src/app.css and add responsive rules.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+How to run
 
-## Expanding the ESLint configuration
+1. Install dependencies:
+   - npm install
+2. Start the app:
+   - npm start
+3. Open http://localhost:3000
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+What you can find in the code (short)
+
+- src/components — all main UI components (Navbar, HomePage, Cryptocurrencies, CryptoDetails, LineChart, Loader).
+- src/auth — signup page (Auth.jsx) and ProtectedRoute that blocks pages when not signed in.
+- src/services — API hooks to fetch crypto data.
+- src/app.css — all styling and responsive rules.
+- src/App.jsx — routing and layout.
+
+What we learned (easy words)
+
+- React basics: components, props, state and hooks (useState, useEffect).
+- Routing: how to protect routes and navigate between pages.
+- API calls: fetch data and handle loading states.
+- UI library (Ant Design): use ready components to build forms, lists, cards, and layout quickly.
+- Charts: display time-series data with chart.js.
+- Simple auth flow: collect input, generate OTP, verify, and keep a mock session.
+- CSS: build responsive layouts and style components for a nice look.
+
+Limitations & next steps
+
+- OTP here is mock (generated in the browser). For production you must use a real backend + SMS provider (Twilio, Firebase, etc.).
+- Replace localStorage mock session with proper auth tokens (JWT) from a server.
+- Add server-side validation and secure storage.
+- Improve error handling and unit tests.
+
+Quick tips
+
+- To test signup: go to `/auth`, fill form, read OTP from the notification, verify — you will be logged in.
+- To logout: use the "Logout" item in the navbar (it clears the mock session).
+- To debug: open browser devtools → Application → Local Storage to inspect `currentUser` and `users`.
+
+If you want, I can:
+
+- Add an example backend for OTP (Firebase or Express + Twilio).
+- Add deployment steps (Netlify/Vercel) and environment variable instructions.

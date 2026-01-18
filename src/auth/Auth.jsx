@@ -11,9 +11,19 @@ const SignupForm = ({ onComplete }) => {
   const [form] = Form.useForm();
   const [step, setStep] = useState(1);
   const [mobile, setMobile] = useState("");
+  const [firstName, setFirstName] = useState("");
+
+  // allow only digits and limit to 10 chars
+  const handleMobileChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setMobile(digits);
+    // keep form value in sync
+    form.setFieldsValue({ mobile: digits });
+  };
 
   const sendOtp = (values) => {
     setMobile(values.mobile);
+    setFirstName(values.firstName);
     const otp = generateOtp();
     sessionStorage.setItem("mock_otp", otp);
     sessionStorage.setItem("pending_user", JSON.stringify(values));
@@ -42,7 +52,7 @@ const SignupForm = ({ onComplete }) => {
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
       sessionStorage.removeItem("mock_otp");
       sessionStorage.removeItem("pending_user");
-      notification.success({ message: "Signup successful" });
+      notification.success({ message: `${firstName} Signup successful` });
       form.resetFields();
       setStep(1);
       onComplete({ mobile: user.mobile, email: user.email });
@@ -69,32 +79,43 @@ const SignupForm = ({ onComplete }) => {
       {step === 1 && (
         <Form form={form} layout="vertical" onFinish={sendOtp}>
           <Form.Item
-            name="First name"
+            name="firstName"
             label="First name"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Enter First name" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="Last name"
+            name="lastName"
             label="Last name"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Enter Last name" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="Email"
+            name="email"
             label="Email"
             rules={[{ required: true }, { type: "email" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name="Mobile"
+            name="mobile"
             label="Mobile"
-            rules={[{ required: true }, { pattern: /^\d{6,15}$/ }]}
+            rules={[
+              { required: true },
+              {
+                pattern: /^\d{10}$/,
+                message: "Mobile must be exactly 10 digits",
+              },
+            ]}
           >
-            <Input onChange={(e) => setMobile(e.target.value)} />
+            <Input
+              type="tel"
+              maxLength={10}
+              onChange={handleMobileChange}
+              value={mobile}
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
@@ -106,7 +127,7 @@ const SignupForm = ({ onComplete }) => {
 
       {step === 2 && (
         <Form layout="vertical" onFinish={verifyOtp}>
-          <Form.Item label={`OTP sent to ${mobile}`}>
+          <Form.Item label={`OTP sent to ${firstName || mobile}`}>
             <Input value={mobile} disabled />
           </Form.Item>
           <Form.Item name="otp" label="Enter OTP" rules={[{ required: true }]}>
